@@ -1,0 +1,17 @@
+###
+POST http://localhost:3001/login
+Content-Type: application/json
+
+{
+    "username":"anthonyfinix",
+    "password":"letmein"
+}
+###
+GET http://localhost:3001/currentUser
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpYXQiOjE2MjU0MTkzMzMsImV4cCI6MTYyNTQyNDMzM30._hfvSvgFZKD7lHP47L4orFfrLHf8_cIubJTGsCr8XeU
+
+{
+    "username":"anthonyfinix",
+    "password":"letmein"
+}

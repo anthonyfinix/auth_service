@@ -1,0 +1,24 @@
+POST http://localhost:3000/user
+Content-Type: application/json
+
+{
+    "name":{
+        "first_name":"anil",
+        "middle_name":"mathew",
+        "last_name":"joseph"
+    },
+    "username":"anilmathewjoseph",
+    "password":"anilmathewjoseph@123",
+    "contact_details":{
+        "primary_number":9818031043,
+        "secondary_number":9818031045,
+        "email":"anilmathewjoseph@gmail.com",
+        "address":"2190 sector 8 faridabad, haryana",
+        "city":"faridabad",
+        "state":"haryana",
+        "country":"india",
+        "pincode":121006
+    },
+    "active":true,
+    "role":"admin"
+}
