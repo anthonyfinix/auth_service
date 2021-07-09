@@ -1,10 +1,12 @@
-import { NextFunction, Request, Response } from "express"
+import { NextFunction, Request,Response } from "express";
+import { JwtPayload } from "jsonwebtoken";
 import configuration from "../config";
 import { userHttp } from "../util/axios/userService";
 import decodeJwt from "../util/jsonwebtoken/decodeJwt";
 import generateAccessToken from "../util/jsonwebtoken/generateAccessToken";
 import verifyJwt from "../util/jsonwebtoken/verifyJwt";
-export default async (req: Request, res: Response, next: NextFunction) => {
+
+export default async (req: any, res: Response, next: NextFunction) => {
     if (req.headers.authorization) {
         let authorization: string = req.headers.authorization;
         let accessToken = authorization.split(" ")[1];
@@ -13,15 +15,19 @@ export default async (req: Request, res: Response, next: NextFunction) => {
             let response = await userHttp.get('/user', { params: { username: payload.username } })
             let { data } = response;
             if (data.result && (data.result.length >= 1)) req.user = data.result[0];
-            return next()
+            next()
+            return
         } catch (e) {
             if (e.message == "jwt expired") {
                 let payload = decodeJwt(accessToken);
-                accessToken = generateAccessToken(payload, configuration.jwt.secret)
+                accessToken = generateAccessToken(<JwtPayload>payload, configuration.jwt.secret)
                 res.set("Authorization", accessToken);
             };
-            return next();
+            next()
+            return
         }
     };
-    return next();
+    
+    next();
+    return
 }
